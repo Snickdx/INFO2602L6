@@ -19,6 +19,20 @@
       </div>
     </nav>
 
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <nav class="white black-text" style="padding: 10px">
+      <div class="nav-wrapper">
+          <ul class="flashes">
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+          </ul>
+      </div>
+    </nav>
+    {% endif %}
+    {% endwith %}
+
     <div id="content">{% block content %}{% endblock %}</div>
 
     <script src="https://code.iconify.design/1/1.0.4/iconify.min.js"></script>
