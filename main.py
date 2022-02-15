@@ -1,6 +1,6 @@
 import json
 from flask_login import LoginManager, current_user, login_user, login_required
-from flask import Flask, request, render_template, redirect, flash, url_for
+from flask import Flask, request, jsonify, render_template, redirect, flash, url_for
 from sqlalchemy.exc import IntegrityError
 from datetime import timedelta 
 
@@ -54,8 +54,8 @@ def loginAction():
 @app.route('/users', methods=['GET'])
 def get_todos():
   users = User.query.all()
-  results = []
-  return json.dumps([ user.toDict() for user in users ])
+  users_list = [ user.toDict() for user in users ] # convert user objects to list of dictionaries
+  return jsonify({ "num_users": len(users_list), "users": users_list })
 
 @app.route('/signup', methods=['GET'])
 def signup():
